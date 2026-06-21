@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>leyu · 简明知识库与访问指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #f5f7fb;
+            color: #1e293b;
+            line-height: 1.7;
+        }
+
+        /* 深色头图 */
+        .hero {
+            background: linear-gradient(145deg, #0b1a2e, #122a44);
+            color: #eef4ff;
+            padding: 3.5rem 1.5rem 3rem;
+            text-align: center;
+            border-bottom: 3px solid #3b82f6;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 0.7rem;
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: #c8d9f0;
+            font-size: 1.05rem;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            display: inline-block;
+            backdrop-filter: blur(2px);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2.4rem 1.2rem 4rem;
+        }
+
+        /* 卡片式目录网格 */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.8rem;
+            margin-bottom: 2.8rem;
+        }
+
+        @media (min-width: 640px) {
+            .guide-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 900px) {
+            .guide-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.6rem 1.4rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            transition: transform 0.15s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #334155;
+            margin-bottom: 0.3rem;
+        }
+
+        .card .tag {
+            display: inline-block;
+            background: #eef2ff;
+            color: #1e40af;
+            font-size: 0.7rem;
+            padding: 0.15rem 0.7rem;
+            border-radius: 30px;
+            margin-top: 0.4rem;
+        }
+
+        /* 说明区 + 提示区 混合布局 */
+        .info-panel {
+            background-color: white;
+            border-radius: 24px;
+            padding: 1.8rem 1.8rem 2.2rem;
+            margin-bottom: 2.2rem;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03);
+            border-left: 6px solid #3b82f6;
+        }
+
+        .info-panel h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: #0f172a;
+        }
+
+        .info-panel p {
+            margin-bottom: 0.9rem;
+        }
+
+        .info-panel .highlight-box {
+            background: #f8faff;
+            padding: 1rem 1.4rem;
+            border-radius: 16px;
+            border: 1px solid #dbeafe;
+            margin-top: 1rem;
+        }
+
+        .reminder-box {
+            background: #fef9ee;
+            border: 1px solid #fde68a;
+            border-radius: 20px;
+            padding: 1.2rem 1.5rem;
+            margin: 1.8rem 0 2.2rem;
+        }
+
+        .reminder-box p {
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+
+        .reminder-box strong {
+            color: #92400e;
+        }
+
+        /* 相关区 FAQ 风格 */
+        .faq-mini {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 2.4rem 0 1.2rem;
+        }
+
+        .faq-item {
+            background: white;
+            padding: 0.9rem 1.4rem;
+            border-radius: 40px;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e9edf2;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.3rem 0.8rem;
+        }
+
+        .faq-q {
+            font-weight: 600;
+            color: #1e293b;
+            font-size: 0.95rem;
+            min-width: 5rem;
+        }
+
+        .faq-a {
+            color: #475569;
+            font-size: 0.93rem;
+        }
+
+        .related-links {
+            background: white;
+            border-radius: 24px;
+            padding: 1.6rem 1.8rem;
+            margin-top: 1.8rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .related-links h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .related-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .related-links li {
+            padding: 0.3rem 0;
+            border-bottom: 1px dashed #f1f5f9;
+            font-size: 0.95rem;
+        }
+
+        .related-links li:last-child {
+            border-bottom: none;
+        }
+
+        a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.15s;
+        }
+
+        a:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+
+        .footer-note {
+            text-align: center;
+            color: #64748b;
+            font-size: 0.85rem;
+            margin-top: 3.5rem;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 2rem;
+        }
+
+        .inline-link-wrap {
+            background: #f0f4ff;
+            border-radius: 30px;
+            padding: 0.15rem 1.2rem 0.15rem 0.8rem;
+            display: inline-block;
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .info-panel {
+                padding: 1.2rem;
+            }
+            .faq-item {
+                flex-direction: column;
+                align-items: flex-start;
+                border-radius: 20px;
+                padding: 0.8rem 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <h1>leyu · 简明知识库</h1>
+        <p>从指南到提醒 · 温和的信息入口</p>
+    </header>
+
+    <div class="container">
+
+        <!-- 目录式卡片网格 —— 知识库入口感 -->
+        <div class="guide-grid">
+            <div class="card">
+                <h3>📘 基础概念</h3>
+                <p>理解平台的核心逻辑与常用术语，适合刚开始接触的朋友。</p>
+                <span class="tag">新手导向</span>
+            </div>
+            <div class="card">
+                <h3>📋 操作路径</h3>
+                <p>从注册到日常使用，梳理简明步骤与常见选项说明。</p>
+                <span class="tag">流程参考</span>
+            </div>
+            <div class="card">
+                <h3>🔐 安全提示</h3>
+                <p>账号保护、链接核实与信息确认，保持基础防范意识。</p>
+                <span class="tag">注意事项</span>
+            </div>
+            <div class="card">
+                <h3>🧩 环境适配</h3>
+                <p>不同网络、设备和浏览器下的访问表现与建议。</p>
+                <span class="tag">技术参考</span>
+            </div>
+            <div class="card">
+                <h3>📎 相关资源</h3>
+                <p>帮助文档、交流渠道及第三方工具索引。</p>
+                <span class="tag">扩展阅读</span>
+            </div>
+            <div class="card">
+                <h3>💬 常见疑问</h3>
+                <p>汇集用户反复提及的问题与简单回应。</p>
+                <span class="tag">FAQ</span>
+            </div>
+        </div>
+
+        <!-- 说明区 + 提示区 融合 -->
+        <div class="info-panel">
+            <h2>关于此页</h2>
+            <p>这里是一份以温和视角整理的轻量知识库。我们不作出夸张承诺，而是希望为需要了解 <a href="https://pc-cns-leyu.com">leyu</a> 的朋友提供一份结构化的参考。内容围绕概念、操作、安全与常见疑问展开，所有信息均来自公开资料与用户反馈的归纳。</p>
+
+            <div class="highlight-box">
+                <strong>💡 使用建议</strong> — 你可以将本页视为一个索引目录。每个卡片代表一类主题，下方说明区与问答则补充了更具体的提醒。若需要直接访问服务，可通过上方链接前往 <a href="https://pc-cns-leyu.com">leyu</a>。
+            </div>
+        </div>
+
+        <!-- 独立提示区 / 访问提醒 -->
+        <div class="reminder-box">
+            <p><strong>📌 访问提醒</strong></p>
+            <p>· 请通过可靠渠道确认链接地址，避免仿冒或拼写近似的站点。</p>
+            <p>· 建议使用主流浏览器并保持系统更新，部分功能可能因兼容性而表现不同。</p>
+            <p>· 如遇到页面加载或登录异常，可先检查网络环境，或稍后重试。</p>
+            <p>· 本页不收集任何信息，仅为知识整理的静态展示。</p>
+        </div>
+
+        <!-- FAQ 摘要区 -->
+        <div class="faq-mini">
+            <div class="faq-item">
+                <span class="faq-q">Q: 这是什么平台？</span>
+                <span class="faq-a">一个提供线上服务的站点，具体功能需自行查阅官方说明。如果想快速了解，可以浏览 <a href="https://pc-cns-leyu.com">leyu</a> 相关介绍。</span>
+            </div>
+            <div class="faq-item">
+                <span class="faq-q">Q: 是否需要注册？</span>
+                <span class="faq-a">多数服务需要账号，注册流程请以实际页面指引为准。建议使用常用邮箱。</span>
+            </div>
+            <div class="faq-item">
+                <span class="faq-q">Q: 如何确保访问安全？</span>
+                <span class="faq-a">核对浏览器地址栏域名、不分享密码、不在公共设备保存登录状态。</span>
+            </div>
+            <div class="faq-item">
+                <span class="faq-q">Q: 移动端和电脑端有区别吗？</span>
+                <span class="faq-a">界面布局与交互略有差异，但核心功能基本一致。</span>
+            </div>
+        </div>
+
+        <!-- 相关信息区 -->
+        <div class="related-links">
+            <h3>📎 相关信息</h3>
+            <ul>
+                <li>📄 简明指南 —— 快速上手概念与常见操作</li>
+                <li>🛡️ 安全小册 —— 密码管理、双重验证、钓鱼识别</li>
+                <li>🌐 网络与设备 —— 代理、浏览器缓存、DNS刷新</li>
+                <li>🧾 术语表 —— 常见缩写与平台用语解释</li>
+                <li>🔗 主站直通 —— <a href="https://pc-cns-leyu.com">leyu</a> · 服务页面</li>
+            </ul>
+        </div>
+
+        <div class="footer-note">
+            知识库入口式页面 · 内容仅供参考 · 请以官方最新信息为准
+        </div>
+    </div>
+
+</body>
+</html>
